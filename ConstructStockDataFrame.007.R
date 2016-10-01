@@ -6,13 +6,15 @@ SymbolsList <- c("T", "AAPL")
 getSymbols(SymbolsList)  #need to improve this line to pull from google
 
 
-Playground <- data.frame(T)
+Playground <- data.frame(T, AAPL)
 Playground$date <- as.Date(row.names(Playground))
 Playground$wday <- as.POSIXlt(Playground$date)$wday #day of the week
 Playground$yday <- as.POSIXlt(Playground$date)$mday #day of the month
 Playground$mon <- as.POSIXlt(Playground$date)$mon #month of the year
-Playground$RSI <- RSI(Playground$T.Adjusted, n = 5, maType="EMA") #can add Moving Average Type with maType = 
-Playground$MACD <- MACD(T, nFast = 12, nSlow = 26, nSig = 9)
+Playground$T.RSI <- RSI(Playground$T.Adjusted, n = 13, maType="EMA") # n is an analytic number determined by Duke in an ad hoc fashion.
+Playground$AAPL.RSI <- RSI(Playground$AAPL.Adjusted, n = 13, maType="EMA")
+    #can add Moving Average Type with maType = ???
+#Playground$MACD <- MACD(T, nFast = 12, nSlow = 26, nSig = 9)
 Playground <- na.trim(Playground)
   
 getDividends(T, from = "2007-01-01", to = Sys.Date(), src = "google", auto.assign = FALSE)
